@@ -1,0 +1,72 @@
+:root {
+  /* Trying to pick color schemes from here https://htmlcolors.com/color-wheel */
+  --primary-background: #33363d;
+  --secondary-background: #1e1e1e;
+  --focus: #ff1c12;
+  --logo-bg: #de328e;
+}
+
+body {
+  background-color: var(--primary-background);
+}
+
+.App {
+  min-height: 100vh;
+  background-color: var(--primary-background);
+}
+
+.App-header {
+  background-color: var(--secondary-background);
+  min-height: 80px;
+  max-height: 20vh;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  padding-left: 1%;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header .App-header-logo {
+  align-self: center;
+}
+
+.App-header a {
+  padding: 5px;
+  border-radius: 3px;
+  align-self: center;
+}
+
+.App-header a:hover{
+  align-self: center;
+  animation: app-header-hover 0.4s forwards;
+}
+
+@keyframes app-header-hover {
+  from {
+    box-shadow: inset 0 0 0px 0px var(--focus);
+  }
+  to {
+    box-shadow: inset 9em 0 0px 1px var(--focus);
+    color: #fff;
+  }
+}
+
+.Content {
+  min-height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #e9fa0067,
+    #e9fa0067 10px,
+    #09090967 10px,
+    #09090967 20px
+  );
+  color: white;
+  font-weight: bold;
+}
+
+@media (min-width: 260px) and (max-width: 768px) {
+  .App-header {
+    font-size: calc(10px + 4vmin);
+  }
+}
