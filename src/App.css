@@ -1,8 +1,11 @@
 :root {
   /* Trying to pick color schemes from here https://htmlcolors.com/color-wheel */
   --primary-background: #33363d;
-  --secondary-background: #1e1e1e;
-  --focus: #ff1c12;
+  --card-background: #3c4650;
+  --header-background: #1e1e1e;
+  --button-background: #696969;
+  --focus: #de328e;
+  --focus-clicked: #ab266d;
   --logo-bg: #de328e;
 }
 
@@ -16,7 +19,7 @@ body {
 }
 
 .App-header {
-  background-color: var(--secondary-background);
+  background-color: var(--header-background);
   min-height: 80px;
   max-height: 20vh;
   display: flex;
@@ -35,6 +38,8 @@ body {
   padding: 5px;
   border-radius: 3px;
   align-self: center;
+  text-decoration: none;
+  color: white;
 }
 
 .App-header a:hover{
@@ -52,16 +57,71 @@ body {
   }
 }
 
+.Toolbar {
+  min-height: 50px;
+  background-color: var(--primary-background);
+  color: white;
+  font-weight: bold;
+  display: inline-flex;
+  min-width: 100%;
+}
+
+.Toolbar .ToolbarButton {
+  margin: 5px;
+  min-width: 100px;
+  background-color: var(--button-background);
+}
+
+.Toolbar .ToolbarButton:hover {
+  margin: 0px;
+  background-color: var(--focus);
+}
+
+/* .Toolbar .ToolbarButton:focus {
+  margin: 5px;
+  background-color: var(--focus);
+} */
+
+.Toolbar .ToolbarButton:active {
+  margin: 0px;
+  background-color: var(--focus-clicked);
+}
+
 .Content {
   min-height: 100%;
-  background: repeating-linear-gradient(
+  min-width: 100%;
+  /* background: repeating-linear-gradient(
     -45deg,
     #e9fa0067,
     #e9fa0067 10px,
     #09090967 10px,
     #09090967 20px
-  );
+  ); */
+  background-color: var(--primary-background);
   color: white;
+  display: inline-flex;
+}
+
+.Card {
+  background-color: var(--card-background);
+  margin: 5px;
+  padding: 15px;
+  box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.349);
+  display: flex;
+  flex-direction: column;
+  width: 31%;
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+}
+
+.Card span {
+  flex: 100%;
+}
+
+.CardTitle {
+  font-size: large;
   font-weight: bold;
 }
 
