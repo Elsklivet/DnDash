@@ -1,19 +1,93 @@
 import dlogo from './d.svg';
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import settings from './settings.json';
 
-class Card extends React.Component {
-  render() {
-    return <div className='Card'>
-      <span className='CardTitle' id={`Card${this.props.title}`}>{this.props.title}</span>
-      <br></br>
-      <span>Hey there!</span>
-    </div>;
-  }
+var key = 0;
+
+function MonsterCard(props) {
+  return (
+    <div className="MonsterCard">
+      <span>A monster named {props.obj.name} with hp {props.obj.hp} goes here</span>
+    </div>
+  );
 }
 
+function LootCard(props) {
+  return (
+    <div className="LootCard">
+      <span>A loot item named {props.obj.name} worth {props.obj.value} goes here</span>
+    </div>
+  );
+}
+
+const Card = forwardRef((props, ref) => {
+  let [subcards, setSubcards] = useState(Array())
+
+  useImperativeHandle(ref, () => ({
+    tick
+  }))
+
+  function tick() {
+    console.log(`Card${props.title}AddButton was ticked`)
+  }
+
+  function addSubCard() {
+    console.log(`Card${props.title}AddButton was clicked`)
+    // document.getElementById(`Card${props.title}AddButton`).innerText = `bingus`;
+    switch (props.title) {
+      case "Monsters":
+        // Monster card
+        setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus", "hp": 180}))
+        key++;
+        break;
+      case "Loot":
+        // Loot card
+        setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus' claws", "value": "280 GP"}))
+        key++;
+        break;
+
+      default:
+        // Unknown card type, always an error.
+        break;
+    }
+  }
+
+  function renderSubCard(subcard) {
+    switch (props.title) {
+      case "Monsters":
+        // Monster card
+        return <MonsterCard obj={subcard} key={subcard.key}></MonsterCard>
+
+      case "Loot":
+        // Loot card
+        return <LootCard obj={subcard} key={subcard.key}></LootCard>
+        
+      default:
+        // Unknown card type, always an error.
+        break;
+    }
+  }
+
+  return (
+    <>
+    <div className='Card'>
+      <span className='CardTitle' id={`Card${props.title}`}>{props.title}</span>
+      <div className="CardToolbar">
+        <button className="ToolbarButton" onClick={() => tick()}>TICK</button>
+        <button className="ToolbarButton">Button2</button>
+      </div>
+      {subcards !== undefined && subcards.length > 0 && subcards.map(subcard => {
+        return renderSubCard(subcard)
+      })}
+      <button className='AddButton' id={`Card${props.title}AddButton`} onClick={() => addSubCard()}>+</button>
+    </div>
+    </>
+  );
+})
+
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
@@ -22,16 +96,13 @@ function App() {
           DnDash
         </a>
       </header>
-      <div className="Toolbar">
-        <button class="ToolbarButton">Button1</button>
-        <button class="ToolbarButton">Button2</button>
-        <button class="ToolbarButton">Button3</button>
-        <button class="ToolbarButton">Button4</button>
-        <button class="ToolbarButton">Button5</button>
+      <div className='Toolbar'>
+          <button className='ToolbarButton'>Bingus</button>
       </div>
       <div className="Content">
-        <Card title="Monsters"></Card>
-        <Card title="Loot"></Card>
+        <Card title="Monsters" ></Card>
+        <Card title="Loot" ></Card>
+        <button className='AddCardButton'>+</button>
       </div>
     </div>
   );

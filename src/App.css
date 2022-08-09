@@ -58,7 +58,7 @@ body {
 }
 
 .Toolbar {
-  min-height: 50px;
+  min-height: 35px;
   background-color: var(--primary-background);
   color: white;
   font-weight: bold;
@@ -77,11 +77,6 @@ body {
   background-color: var(--focus);
 }
 
-/* .Toolbar .ToolbarButton:focus {
-  margin: 5px;
-  background-color: var(--focus);
-} */
-
 .Toolbar .ToolbarButton:active {
   margin: 0px;
   background-color: var(--focus-clicked);
@@ -90,20 +85,21 @@ body {
 .Content {
   min-height: 100%;
   min-width: 100%;
-  /* background: repeating-linear-gradient(
+  background: repeating-linear-gradient(
     -45deg,
     #e9fa0067,
     #e9fa0067 10px,
     #09090967 10px,
     #09090967 20px
-  ); */
-  background-color: var(--primary-background);
+  );
+  /* background-color: var(--primary-background); */
   color: white;
   display: inline-flex;
 }
 
 .Card {
   background-color: var(--card-background);
+  max-height: 800px;
   margin: 5px;
   padding: 15px;
   box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.349);
@@ -114,6 +110,8 @@ body {
   border-color: black;
   border-width: 3px;
   border-style: solid;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .Card span {
@@ -123,6 +121,71 @@ body {
 .CardTitle {
   font-size: large;
   font-weight: bold;
+}
+
+.CardToolbar {
+  min-height: 35px;
+  max-height: 35px;
+  background-color: var(--card-background);
+  color: white;
+  font-weight: bold;
+  display: inline-flex;
+  min-width: 100%;
+  flex: 100%;
+}
+
+.CardToolbar .ToolbarButton {
+  margin: 5px;
+  min-width: 100px;
+  background-color: var(--button-background);
+}
+
+.CardToolbar .ToolbarButton:hover {
+  margin: 0px;
+  background-color: var(--focus);
+}
+
+.CardToolbar .ToolbarButton:active {
+  margin: 0px;
+  background-color: var(--focus-clicked);
+}
+
+.AddButton {
+  margin: 5px;
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  max-width: 50px;
+  background-color: var(--button-background);
+  align-self: center;
+  font-size: larger;
+}
+
+.AddButton:hover {
+  background-color: var(--focus);
+}
+
+.AddButton:active {
+  background-color: var(--focus-clicked);
+}
+
+.AddCardButton {
+  margin: 5px;
+  min-width: 75px;
+  max-width: 75px;
+  min-height: 75px;
+  max-height: 75px;
+  background-color: var(--button-background);
+  align-self: center;
+  font-size: larger;
+}
+
+.AddCardButton:hover {
+  background-color: var(--focus);
+}
+
+.AddCardButton:active {
+  background-color: var(--focus-clicked);
 }
 
 @media (min-width: 260px) and (max-width: 768px) {
