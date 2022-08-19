@@ -41,9 +41,9 @@ const Card = forwardRef((props, ref) => {
   let [subcards, setSubcards] = useState(Array())
   let [adderVisible, setAdderVisible] = useState(false)
 
-  useEffect(() => {
-    // Do I need this?
-  }, [adderVisible])
+  // useEffect(() => {
+  //   // Do I need this?
+  // }, [adderVisible])
 
   useImperativeHandle(ref, () => ({
     tick
@@ -63,13 +63,13 @@ const Card = forwardRef((props, ref) => {
         // when an "add" or "submit" button is pressed there, it will add a new subcard with
         // that info then set its properties to be hidden (https://www.geeksforgeeks.org/how-to-set-parent-state-from-children-component-in-reactjs/)
         setAdderVisible(true)
-        // setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus", "hp": 180}))
+        setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus", "hp": 180}))
         key++;
         break;
       case "Loot":
         // Loot card
         setAdderVisible(true)
-        // setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus' claws", "value": "280 GP"}))
+        setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus' claws", "value": "280 GP"}))
         key++;
         break;
 
@@ -102,9 +102,11 @@ const Card = forwardRef((props, ref) => {
       <div className="CardToolbar">
         <button className="ToolbarButton" onClick={() => tick()}>TICK</button>
       </div>
-      {subcards !== undefined && subcards.length > 0 && subcards.map(subcard => {
-        return renderSubCard(subcard)
-      })}
+      <div className='Subcards'>
+        {subcards !== undefined && subcards.length > 0 && subcards.map(subcard => {
+          return renderSubCard(subcard)
+        })}
+      </div>
       { props.title === "Monsters" && adderVisible && <AddMonsterCard id={`AddMonsterCard`}></AddMonsterCard> }
       { props.title === "Loot" && adderVisible && <AddLootCard id={`AddLootCard`}></AddLootCard> }
       <button className='AddButton' id={`Card${props.title}AddButton`} onClick={() => addSubCard()}>+</button>

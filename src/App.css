@@ -105,6 +105,7 @@ body {
   box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.349);
   display: flex;
   flex-direction: column;
+  justify-items: self-start;
   width: 31%;
   border-radius: 5px;
   border-color: black;
@@ -112,10 +113,6 @@ body {
   border-style: solid;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.Card span {
-  flex: 100%;
 }
 
 .CardTitle {
@@ -148,6 +145,10 @@ body {
 .CardToolbar .ToolbarButton:active {
   margin: 0px;
   background-color: var(--focus-clicked);
+}
+
+.Subcards {
+  justify-items: flex-start;
 }
 
 .AddButton {
