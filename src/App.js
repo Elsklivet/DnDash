@@ -5,6 +5,22 @@ import settings from './settings.json';
 
 var key = 0;
 
+function AddMonsterCard(props) {
+  return (
+    <div className="AddMonsterCard">
+      Here is where you add a monster card
+    </div>
+  );
+}
+
+function AddLootCard(props) {
+  return (
+    <div className="AddLootCard">
+      Here is where you add a loot card
+    </div>
+  );
+}
+
 function MonsterCard(props) {
   return (
     <div className="MonsterCard">
@@ -23,6 +39,11 @@ function LootCard(props) {
 
 const Card = forwardRef((props, ref) => {
   let [subcards, setSubcards] = useState(Array())
+  let [adderVisible, setAdderVisible] = useState(false)
+
+  useEffect(() => {
+    // Do I need this?
+  }, [adderVisible])
 
   useImperativeHandle(ref, () => ({
     tick
@@ -38,12 +59,17 @@ const Card = forwardRef((props, ref) => {
     switch (props.title) {
       case "Monsters":
         // Monster card
-        setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus", "hp": 180}))
+        // Here we should actually unhide a component that is used to gather all the information for a monster, then 
+        // when an "add" or "submit" button is pressed there, it will add a new subcard with
+        // that info then set its properties to be hidden (https://www.geeksforgeeks.org/how-to-set-parent-state-from-children-component-in-reactjs/)
+        setAdderVisible(true)
+        // setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus", "hp": 180}))
         key++;
         break;
       case "Loot":
         // Loot card
-        setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus' claws", "value": "280 GP"}))
+        setAdderVisible(true)
+        // setSubcards(prevSubcards => prevSubcards.concat({"key": key, "name": "bingus' claws", "value": "280 GP"}))
         key++;
         break;
 
@@ -75,11 +101,12 @@ const Card = forwardRef((props, ref) => {
       <span className='CardTitle' id={`Card${props.title}`}>{props.title}</span>
       <div className="CardToolbar">
         <button className="ToolbarButton" onClick={() => tick()}>TICK</button>
-        <button className="ToolbarButton">Button2</button>
       </div>
       {subcards !== undefined && subcards.length > 0 && subcards.map(subcard => {
         return renderSubCard(subcard)
       })}
+      { props.title === "Monsters" && adderVisible && <AddMonsterCard id={`AddMonsterCard`}></AddMonsterCard> }
+      { props.title === "Loot" && adderVisible && <AddLootCard id={`AddLootCard`}></AddLootCard> }
       <button className='AddButton' id={`Card${props.title}AddButton`} onClick={() => addSubCard()}>+</button>
     </div>
     </>
