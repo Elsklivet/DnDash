@@ -1,14 +1,17 @@
 import dlogo from './d.svg';
 import './App.css';
 import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
-import settings from './settings.json';
 
 var key = 0;
 
 function AddMonsterCard(props) {
   return (
     <div className="AddMonsterCard">
-      Here is where you add a monster card
+      <div className="nameDiv">Name and box</div>
+      <div className="hpDiv">HP and box</div>
+      <div className="xpDiv">XP box</div>
+      <div className="acDiv">AC box</div>
+      <div className="initDiv">Init box</div>
     </div>
   );
 }
@@ -16,7 +19,7 @@ function AddMonsterCard(props) {
 function AddLootCard(props) {
   return (
     <div className="AddLootCard">
-      Here is where you add a loot card
+      Add loot card
     </div>
   );
 }

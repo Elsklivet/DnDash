@@ -189,6 +189,38 @@ body {
   background-color: var(--focus-clicked);
 }
 
+.AddMonsterCard {
+  display: grid;
+  grid-template-areas: 
+    'name name name name hp hp'
+    'xp xp ac ac init init'
+    'stag stag stag spell spell spell'
+    'status status status status status status'
+    'url url url url url url'
+    ;
+  gap: 5px;
+}
+
+.AddMonsterCard > .nameDiv {
+  grid-area: name;
+}
+
+.AddMonsterCard > .hpDiv {
+  grid-area: hp;
+}
+
+.AddMonsterCard > .xpDiv {
+  grid-area: xp;
+}
+
+.AddMonsterCard > .acDiv {
+  grid-area: ac;
+}
+
+.AddMonsterCard > .initDiv {
+  grid-area: init;
+}
+
 @media (min-width: 260px) and (max-width: 768px) {
   .App-header {
     font-size: calc(10px + 4vmin);
