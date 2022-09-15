@@ -57,6 +57,12 @@ body {
   }
 }
 
+.TextInput {
+  background-color: var(--button-background);
+  border-color: var(--header-background);
+  border-style: solid;
+}
+
 .Toolbar {
   min-height: 35px;
   background-color: var(--primary-background);
@@ -66,19 +72,32 @@ body {
   min-width: 100%;
 }
 
+.Toolbar .TextInput {
+  @extend .TextInput;
+  width: 45%;
+  font-size: large;
+  font-weight: bold;
+}
+
+.Toolbar .CommandOutput {
+  @extend .TextInput;
+  resize: none;
+  font-size: large;
+  font-weight: bold;
+}
+
 .Toolbar .ToolbarButton {
-  margin: 5px;
   min-width: 100px;
   background-color: var(--button-background);
+  font-weight: bold;
+  font-size: large;
 }
 
 .Toolbar .ToolbarButton:hover {
-  margin: 0px;
   background-color: var(--focus);
 }
 
 .Toolbar .ToolbarButton:active {
-  margin: 0px;
   background-color: var(--focus-clicked);
 }
 
@@ -113,6 +132,18 @@ body {
   border-style: solid;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.MonsterCard {
+  @extend .Card;
+}
+
+.LootCard {
+  @extend .Card;
+}
+
+.TurnListCard {
+  @extend .Card;
 }
 
 .CardTitle {
