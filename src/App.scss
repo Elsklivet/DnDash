@@ -88,6 +88,7 @@ body {
 
 .Toolbar .CommandOutput {
   @extend .TextInput;
+  width: 50%;
   resize: none;
   font-size: large;
   font-weight: bold;
