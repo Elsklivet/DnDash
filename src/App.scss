@@ -7,6 +7,13 @@
   --focus: #de328e;
   --focus-clicked: #ab266d;
   --logo-bg: #de328e;
+  --work-in-progress: repeating-linear-gradient(
+    -45deg,
+    #e9fa0067,
+    #e9fa0067 10px,
+    #09090967 10px,
+    #09090967 20px
+  );
 }
 
 body {
@@ -104,13 +111,7 @@ body {
 .Content {
   min-height: 100%;
   min-width: 100%;
-  background: repeating-linear-gradient(
-    -45deg,
-    #e9fa0067,
-    #e9fa0067 10px,
-    #09090967 10px,
-    #09090967 20px
-  );
+  background: var(--work-in-progress);
   /* background-color: var(--primary-background); */
   color: white;
   display: inline-flex;
@@ -162,20 +163,28 @@ body {
   flex: 100%;
 }
 
+.Button {
+  background-color: var(--button-background);
+}
+.Button:hover {
+  background-color: var(--focus);
+}
+.Button:active {
+  background-color: var(--focus-clicked);
+}
+
 .CardToolbar .ToolbarButton {
+  @extend .Button;
   margin: 5px;
   min-width: 100px;
-  background-color: var(--button-background);
 }
 
 .CardToolbar .ToolbarButton:hover {
   margin: 0px;
-  background-color: var(--focus);
 }
 
 .CardToolbar .ToolbarButton:active {
   margin: 0px;
-  background-color: var(--focus-clicked);
 }
 
 .Subcards {
@@ -220,36 +229,46 @@ body {
   background-color: var(--focus-clicked);
 }
 
-.AddMonsterCard {
+.AddXCard {
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  gap: 5px;
+  padding: 5px;
   display: grid;
+}
+
+.AddMonsterCard {
+  @extend .AddXCard;
   grid-template-areas: 
     'name name name name hp hp'
     'xp xp ac ac init init'
     'stag stag stag spell spell spell'
     'status status status status status status'
     'url url url url url url'
-    ;
-  gap: 5px;
+    'btn btn btn btn btn btn'
+    ;  
 }
 
-.AddMonsterCard > .nameDiv {
-  grid-area: name;
+.AddLootCard {
+  @extend .AddXCard;
+  grid-template-areas: 
+  'name name name name name name'
+  'url url url url url url'
+  'gp gp class class class class'
+  'desc desc desc desc desc desc'
+  'btn btn btn btn btn btn'
+  ;
 }
 
-.AddMonsterCard > .hpDiv {
-  grid-area: hp;
-}
-
-.AddMonsterCard > .xpDiv {
-  grid-area: xp;
-}
-
-.AddMonsterCard > .acDiv {
-  grid-area: ac;
-}
-
-.AddMonsterCard > .initDiv {
-  grid-area: init;
+.AddTurnCard {
+  @extend .AddXCard;
+  grid-template-areas: 
+  'name name'
+  'init init'
+  'btn btn'
+  ;
 }
 
 @media (min-width: 260px) and (max-width: 768px) {
