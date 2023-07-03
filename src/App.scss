@@ -4,6 +4,8 @@
   --card-background: #3c4650;
   --header-background: #1e1e1e;
   --button-background: #696969;
+  --hp-background: #178800;
+  --stagger-background: #da9800;
   --focus: #de328e;
   --focus-clicked: #ab266d;
   --logo-bg: #de328e;
@@ -174,6 +176,42 @@ body {
   background-color: var(--focus-clicked);
 }
 
+.HpBarWrapper {
+  position: relative;
+  // border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  z-index: 1;
+}
+
+.HpBar {
+  background-color: var(--hp-background);
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.StaggerBarWrapper {
+  position: relative;
+  // border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  z-index: 1;
+}
+
+.StaggerBar {
+  background-color: var(--stagger-background);
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .CardToolbar .ToolbarButton {
   @extend .Button;
   margin: 5px;
@@ -197,7 +235,6 @@ body {
   min-width: 50px;
   max-width: 50px;
   min-height: 50px;
-  max-width: 50px;
   background-color: var(--button-background);
   align-self: center;
   font-size: larger;
@@ -237,6 +274,7 @@ body {
   border-style: solid;
   gap: 5px;
   padding: 5px;
+  margin-bottom: 5px;
   display: grid;
 }
 
@@ -270,6 +308,26 @@ body {
   'init init'
   'btn btn'
   ;
+}
+
+.Monster {
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  gap: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-areas: 
+    'name name name name name del'
+    'ac ac xp xp init init'
+    'hp hp hp hp hpadd hpplus'
+    'stag stag stag stag tick tick'
+    'spell spellmin spellplus statuslabel statusadd statusplus'
+    'status status status status status status'
+    'url url url url clear reset'
+    ; 
 }
 
 @media (min-width: 260px) and (max-width: 768px) {

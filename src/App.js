@@ -1,98 +1,40 @@
 import dlogo from './d.svg';
 import './App.scss';
 import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { Monster, MonsterCard, AddMonsterCard } from './Monster';
 
-function MonsterCard() {
-
-  function AddMonsterCard() {
-    return (
-      <div className='AddMonsterCard'>
-        <div style={{'grid-area': 'name'}}>
-          <label>Name: </label>
-          <input type='text' style={{'width': '85%'}}></input>
-        </div>
-        <div style={{'grid-area': 'hp'}}>
-          <label>HP: </label>
-          <input type='text'></input>
-        </div>
-        <div style={{'grid-area': 'xp'}}>
-          <label>XP: </label>
-          <input type='text'></input>
-        </div>
-        <div style={{'grid-area': 'ac'}}>
-          <label>AC: </label>
-          <input type='text'></input>
-        </div>
-        <div style={{'grid-area': 'init'}}>
-          <label>Init: </label>
-          <input type='text'></input>
-        </div>
-        <div style={{'grid-area': 'stag'}}>
-          <label>Stagger: </label>
-          <input type='text'></input>
-          <input type='text' style={{'max-width': '60px', 'margin-left':'5px'}}></input>
-        </div>
-        <div style={{'grid-area': 'spell'}}>
-          <label>Spell Slots: </label>
-          <input type='text' style={{'width':'70%'}}></input>
-        </div>
-        <div style={{'grid-area': 'status'}}>
-          <label>Status: </label>
-          <input type='text' style={{'width':'90%'}}></input>
-        </div>
-        <div style={{'grid-area': 'url'}}>
-          <label>Details URL: </label>
-          <input type='text' style={{'width':'84%'}}></input>
-        </div>
-        <div style={{'grid-area': 'btn'}}>
-          <button className='Button' style={{'width':'50%'}}>Add</button>
-          <button className='Button' style={{'width':'50%'}}>Cancel</button>
-        </div>
-      </div>
-    )
-  }
-  
+function AddLootCard() {
   return (
-    <div className='MonsterCard'>
-      <h3>Monster Card</h3>
-      <AddMonsterCard></AddMonsterCard>
+    <div className='AddLootCard'>
+      <div style={{'gridArea': 'name'}}>
+        <label>Name: </label>
+        <input type='text' style={{'width': '90%'}}></input>
+      </div>
+      <div style={{'gridArea': 'url'}}>
+        <label>Details URL: </label>
+        <input type='text' style={{'width':'84%'}}></input>
+      </div>
+      <div style={{'gridArea': 'gp'}}>
+        <label>GP: </label>
+        <input type='text' style={{'width':'85%'}}></input>
+      </div>
+      <div style={{'gridArea': 'class'}}>
+        <label>Class: </label>
+        <input type='text' style={{'width':'85%'}}></input>
+      </div>
+      <div style={{'gridArea': 'desc'}}>
+        <label>Description: </label>
+        <input type='text' style={{'width':'84%'}}></input>
+      </div>
+      <div style={{'gridArea': 'btn'}}>
+        <button className='Button' style={{'width':'50%'}}>Add</button>
+        <button className='Button' style={{'width':'50%'}}>Cancel</button>
+      </div>
     </div>
   )
 }
 
 function LootCard() {
-
-  function AddLootCard() {
-    return (
-      <div className='AddLootCard'>
-        <div style={{'grid-area': 'name'}}>
-          <label>Name: </label>
-          <input type='text' style={{'width': '90%'}}></input>
-        </div>
-        <div style={{'grid-area': 'url'}}>
-          <label>Details URL: </label>
-          <input type='text' style={{'width':'84%'}}></input>
-        </div>
-        <div style={{'grid-area': 'gp'}}>
-          <label>GP: </label>
-          <input type='text' style={{'width':'85%'}}></input>
-        </div>
-        <div style={{'grid-area': 'class'}}>
-          <label>Class: </label>
-          <input type='text' style={{'width':'85%'}}></input>
-        </div>
-        <div style={{'grid-area': 'desc'}}>
-          <label>Description: </label>
-          <input type='text' style={{'width':'84%'}}></input>
-        </div>
-        <div style={{'grid-area': 'btn'}}>
-          <button className='Button' style={{'width':'50%'}}>Add</button>
-          <button className='Button' style={{'width':'50%'}}>Cancel</button>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className='LootCard'>
       <h3>Loot Card</h3>
@@ -101,27 +43,26 @@ function LootCard() {
   )
 }
 
-function TurnListCard() {
-
-  function AddTurnCard() {
-    return (
-      <div className='AddTurnCard'>
-        <div style={{'grid-area': 'name'}}>
-          <label>Name: </label>
-          <input type='text' style={{'width': '90%'}}></input>
-        </div>
-        <div style={{'grid-area': 'init'}}>
-          <label >Init: </label>
-          <input type='text' style={{'width': '93.3%'}}></input>
-        </div>
-        <div style={{'grid-area': 'btn'}}>
-          <button className='Button' style={{'width':'50%'}}>Add</button>
-          <button className='Button' style={{'width':'50%'}}>Cancel</button>
-        </div>
+function AddTurnCard() {
+  return (
+    <div className='AddTurnCard'>
+      <div style={{'gridArea': 'name'}}>
+        <label>Name: </label>
+        <input type='text' style={{'width': '90%'}}></input>
       </div>
-    )
-  }
-  
+      <div style={{'gridArea': 'init'}}>
+        <label >Init: </label>
+        <input type='text' style={{'width': '93.3%'}}></input>
+      </div>
+      <div style={{'gridArea': 'btn'}}>
+        <button className='Button' style={{'width':'50%'}}>Add</button>
+        <button className='Button' style={{'width':'50%'}}>Cancel</button>
+      </div>
+    </div>
+  )
+}
+
+function TurnListCard() {
   return (
     <div className='TurnListCard'>
       <h3>Turn List Card</h3>
@@ -132,7 +73,6 @@ function TurnListCard() {
 
 
 function App() {
-
   return (
     <div className='App'>
       <header className='App-header'>
