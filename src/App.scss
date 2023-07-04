@@ -114,8 +114,8 @@ body {
 .Content {
   min-height: 100%;
   min-width: 100%;
-  background: var(--work-in-progress);
-  /* background-color: var(--primary-background); */
+  // background: var(--work-in-progress);
+  background-color: var(--primary-background);
   color: white;
   display: inline-flex;
 }
@@ -282,7 +282,7 @@ body {
   @extend .AddXCard;
   grid-template-areas: 
     'name name name name hp hp'
-    'xp xp ac ac init init'
+    'xp xp ac ac lvl lvl'
     'stag stag stag spell spell spell'
     'status status status status status status'
     'url url url url url url'
@@ -321,12 +321,44 @@ body {
   display: grid;
   grid-template-areas: 
     'name name name name name del'
-    'ac ac xp xp init init'
+    'ac ac xp xp lvl lvl'
     'hp hp hp hp hpadd hpplus'
     'stag stag stag stag tick tick'
     'spell spellmin spellplus statuslabel statusadd statusplus'
     'status status status status status status'
-    'url url url url clear reset'
+    'url url url url url reset'
+    ; 
+}
+
+.Loot {
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  gap: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-areas: 
+    'name name name name name del'
+    'url url url url url url'
+    'gp gp class class class class'
+    'desc desc desc desc desc desc'
+    'desc desc desc desc desc desc'
+  ; 
+}
+
+.Turn {
+  border-radius: 5px;
+  border-color: black;
+  border-width: 3px;
+  border-style: solid;
+  gap: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-areas: 
+    'name name name init init del'
     ; 
 }
 

@@ -1,27 +1,32 @@
 import './App.scss';
 import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
-export default function Monster(props) {
+export function Monster(props) {
     const [monsterData, setMonsterData] = useState({
         name: props.mData.name,
         hp: props.mData.hp,
-        maxHp: props.mData.hp,
+        maxHp: props.mData.maxHp,
         xp: props.mData.xp,
         ac: props.mData.ac,
-        init: props.mData.init,
-        stag: 0,
+        lvl: props.mData.lvl,
+        stag: props.mData.stag,
         staggered: false,
-        stagPoint: props.mData.stag,
+        stagPoint: props.mData.stagPoint,
         stagDrop: props.mData.stagDrop,
         spell: props.mData.spell,
         stat: props.mData.stat,
-        mUrl: props.mData.mUrl
+        mUrl: props.mData.mUrl,
+        key: props.mData.key,
     });
 
     const [modifierData, setModifierData] = useState({
         hpAdd: '',
         statusAdd: ''
     });
+
+    useEffect(() => {
+        props.upHandler(monsterData);
+    }, [monsterData]);
 
     function handleDeleteClick() {
         props.deleteHandler(props.mData.key);
@@ -31,7 +36,7 @@ export default function Monster(props) {
         const newStag = monsterData.stag - monsterData.stagDrop;
         let statuses = monsterData.stat;
         let statusList = statuses.split(",");
-        if (statuses.length == 0) {
+        if (statuses.length === 0) {
             statusList = [];
         }
         statusList.map((st) => st.trim());
@@ -54,10 +59,10 @@ export default function Monster(props) {
     }
 
     function handleTextChange(event) {
-        setModifierData({
-          ...modifierData,
-          [event.target.name]: event.target.value
-        });
+            setModifierData({
+                ...modifierData,
+                [event.target.name]: event.target.value
+            });
     }
 
     function handleHpAddClick() {
@@ -70,7 +75,7 @@ export default function Monster(props) {
             let newStag = monsterData.stag;
             let statuses = monsterData.stat;
             let statusList = statuses.split(",");
-            if (statuses.length == 0) {
+            if (statuses.length === 0) {
                 statusList = [];
             }
             statusList.map((st) => st.trim());
@@ -84,6 +89,24 @@ export default function Monster(props) {
                     statuses = statusList.join(', ');
                 } else {
                     newStag -= amount;
+                }
+            } else {
+                newStag = monsterData.stag - amount;
+
+                if (newStag > 0) {
+                    setMonsterData({
+                        ...monsterData,
+                        stag: newStag
+                    });
+                } else {
+                    statusList = statusList.filter((status) => status.toLowerCase().trim() !== "staggered");
+                    statuses = statusList.join(', ');
+                    setMonsterData({
+                        ...monsterData,
+                        staggered: false,
+                        stag: 0,
+                        stat: statuses
+                    });
                 }
             }
 
@@ -107,7 +130,11 @@ export default function Monster(props) {
                 stag: newStag,
                 staggered: toSetStaggered,
                 stat: statuses
-            })
+            });
+            setModifierData({
+                ...modifierData,
+                hpAdd: ''
+            });
         }
     }
 
@@ -142,7 +169,7 @@ export default function Monster(props) {
         let removing = false;
         let statuses = monsterData.stat;
         let statusList = statuses.split(",");
-        if (statuses.length == 0) {
+        if (statuses.length === 0) {
             statusList = [];
         }
         statusList.map((st) => st.trim());
@@ -174,12 +201,8 @@ export default function Monster(props) {
             ...monsterData,
             stat: statuses
         });
-    }
-
-    function handleClearClick() {
-        // Clear input boxes
         setModifierData({
-            hpAdd: '',
+            ...modifierData,
             statusAdd: ''
         });
     }
@@ -192,7 +215,7 @@ export default function Monster(props) {
             maxHp: props.mData.hp,
             xp: props.mData.xp,
             ac: props.mData.ac,
-            init: props.mData.init,
+            lvl: props.mData.lvl,
             stag: 0,
             staggered: false,
             stagPoint: props.mData.stag,
@@ -227,9 +250,9 @@ export default function Monster(props) {
                 <label>AC: </label>
                 <label name='ac'>{monsterData.ac}</label>
             </div>
-            <div style={{'gridArea': 'init'}}>
-                <label>Init: </label>
-                <label name='init'>{monsterData.init}</label>
+            <div style={{'gridArea': 'lvl'}}>
+                <label>Lvl: </label>
+                <label name='lvl'>{monsterData.lvl}</label>
             </div>
             <div style={{'gridArea': 'hp'}}>
                 <div className='HpBarWrapper'>HP: {monsterData.hp}/{monsterData.maxHp}
@@ -275,10 +298,11 @@ export default function Monster(props) {
             </div>
             <div style={{'gridArea': 'url'}}>
                 <label>Details: </label>
-                <label name='mUrl' style={{'width':'75%'}}>{monsterData.mUrl}</label>
-            </div>
-            <div style={{'gridArea': 'clear'}}>
-                <button className='Button' style={{'width':'100%'}} onClick={handleClearClick}>Clear</button>
+                {monsterData.mUrl === '' ?
+                    <label name='mUrl' style={{'width':'75%'}}>None</label>
+                    :
+                    <a name='mUrl' href={monsterData.mUrl}>Link</a>
+                }
             </div>
             <div style={{'gridArea': 'reset'}}>
                 <button className='Button' style={{'width':'100%'}} onClick={handleResetClick}>Reset</button>
@@ -291,40 +315,68 @@ export function AddMonsterCard(props) {
     const [monsterData, setMonsterData] = useState({
       name: '',
       hp: '',
+      maxHp: '',
       xp: '',
       ac: '',
-      init: '',
+      lvl: '',
       stag: '',
+      stagPoint: '',
       stagDrop: '',
       spell: '',
       stat: '',
       mUrl: ''
     });
-  
+
     function handleTextChange(event) {
-      setMonsterData({
-        ...monsterData,
-        [event.target.name]: event.target.value
-      });
+        if (event.target.name === 'hp') {
+            setMonsterData({
+                ...monsterData,
+                'hp': event.target.value,
+                'maxHp': event.target.value
+            });
+        } else {
+            setMonsterData({
+                ...monsterData,
+                [event.target.name]: event.target.value
+            });
+        }
     }
   
     function handleAddClick() {
-        props.addHandler(monsterData);
+        let addData = {...monsterData, 'stag': 0, 'hp': monsterData.maxHp};
+        setMonsterData(addData);
+        props.addHandler(addData);
+        setMonsterData({
+            name: '',
+            hp: '',
+            xp: '',
+            ac: '',
+            lvl: '',
+            stag: '',
+            stagDrop: '',
+            spell: '',
+            stat: '',
+            mUrl: ''
+          });
+    
+        props.cancelHandler();
     }
   
-    function handleClearClick() {
+    function handleCancelClick() {
       setMonsterData({
         name: '',
         hp: '',
         xp: '',
         ac: '',
-        init: '',
+        lvl: '',
         stag: '',
         stagDrop: '',
         spell: '',
         stat: '',
         mUrl: ''
       });
+
+      props.cancelHandler();
     }
   
     return (
@@ -345,13 +397,13 @@ export function AddMonsterCard(props) {
           <label>AC: </label>
           <input name='ac' type='text' value={monsterData.ac} onChange={handleTextChange}></input>
         </div>
-        <div style={{'gridArea': 'init'}}>
-          <label>Init: </label>
-          <input name='init' type='text' value={monsterData.init} onChange={handleTextChange}></input>
+        <div style={{'gridArea': 'lvl'}}>
+          <label>Lvl: </label>
+          <input name='lvl' type='text' value={monsterData.lvl} onChange={handleTextChange}></input>
         </div>
         <div style={{'gridArea': 'stag'}}>
           <label>Stagger: </label>
-          <input name='stag' type='text' value={monsterData.stag} onChange={handleTextChange}></input>
+          <input name='stagPoint' type='text' value={monsterData.stagPoint} onChange={handleTextChange}></input>
           <input name='stagDrop' type='text' value={monsterData.stagDrop} onChange={handleTextChange} style={{'maxWidth': '60px', 'marginLeft':'5px'}}></input>
         </div>
         <div style={{'gridArea': 'spell'}}>
@@ -368,15 +420,21 @@ export function AddMonsterCard(props) {
         </div>
         <div style={{'gridArea': 'btn'}}>
           <button className='Button' style={{'width':'50%'}} onClick={handleAddClick}>Add</button>
-          <button className='Button' style={{'width':'50%'}} onClick={handleClearClick}>Clear</button>
+          <button className='Button' style={{'width':'50%'}} onClick={handleCancelClick}>Cancel</button>
         </div>
       </div>
     )
 }
   
-export function MonsterCard() {
-    const [monsters, setMonsters] = useState([]);
-    const [numMonsters, setNumMonsters] = useState(0);
+export default function MonsterCard() {
+    const [monsters, setMonsters] = useState(JSON.parse(localStorage.getItem('dndashMonsters')) ? JSON.parse(localStorage.getItem('dndashMonsters')) : []);
+    const [numMonsters, setNumMonsters] = useState(monsters && monsters.length > 0 ? monsters[monsters.length - 1].key : 0);
+    const [addingMonster, setAddingMonster] = useState(false);
+
+    // Save monsters
+    useEffect(() => {
+        localStorage.setItem('dndashMonsters', JSON.stringify(monsters));
+    }, [monsters]);
   
     function handleAddMonster(monsterValues) {
         const monsterId = numMonsters;
@@ -387,18 +445,35 @@ export function MonsterCard() {
         ]);
     }
 
+    function handleUpMonster(monsterValues) {
+        const monsterId = monsterValues.key;
+        let upMonsters = [...monsters];
+        upMonsters[upMonsters.findIndex(mnst => mnst.key === monsterId)] = monsterValues;
+        setMonsters(upMonsters);
+    }
+
     function handleDeleteMonster(monsterKey) {
         setNumMonsters(numMonsters - 1);
-        setMonsters(monsters.filter(monster => monster.key != monsterKey));
+        setMonsters(monsters.filter(monster => monster.key !== monsterKey));
+    }
+
+    function handleCancelClick() {
+        setAddingMonster(false);
+    }
+
+    function handleAddingClick() {
+        setAddingMonster(true);
     }
   
     return (
       <div className='MonsterCard'>
         <h3>Monsters</h3>
         {monsters.map(
-            monster => <Monster mData={monster} deleteHandler={handleDeleteMonster} key={monster.key}></Monster>
+            monster => <Monster mData={monster} upHandler={handleUpMonster} deleteHandler={handleDeleteMonster} key={monster.key}></Monster>
         )}
-        <AddMonsterCard addHandler={handleAddMonster}></AddMonsterCard>
+        {addingMonster ? 
+        <AddMonsterCard addHandler={handleAddMonster} cancelHandler={handleCancelClick}></AddMonsterCard> 
+        : <button className='Button' style={{'width':'100%'}} onClick={handleAddingClick}>+</button>}
       </div>
     )
 }
